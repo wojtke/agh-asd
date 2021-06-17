@@ -181,6 +181,12 @@ class Graph:
 
     return self
 
+  def get_bit(self):
+    B = []
+    for i in range(self.n):
+      B.append( sum([self.G[i][j]<<j for j in range(self.n)]) ) 
+    return B
+
   def get(self):
     return self.G
 

@@ -1,28 +1,25 @@
-from random import randint, shuffle, seed
-import numpy as np
-
-n=20
-A = list(range(n))
-shuffle(A)
-print(A)
-
+"""
+Quickselect - uses partition function, same as in quicksort
+to find k'th element (as if the array was sorted)
+in an array in expected O(n), but worst case O(n^2) time.
+"""
 
 def partition(T, p, q):
+    #[p, q]
+
+    # i - last element smaller than pivot
+    # j - current element
     pivot  = T[q]
-
-    # i - ostatni element mniejszy od pivota
-    # j - element ukladany aktualnie
     i=p-1
-
     for j in range(p,q):
         if T[j]<=pivot:
             i+=1
             T[i], T[j] = T[j], T[i]
 
-    # wrzucenie pivota na srodek
+    # putting pivot element to the center
     T[i+1], T[q] = T[q], T[i+1]
 
-    # zwraca indeks pivota
+    # returning the index of pivot element
     return i+1
 
 def quickselect(tab, p, q, k):
@@ -37,6 +34,7 @@ def quickselect(tab, p, q, k):
 		return quickselect(tab, p, pivot-1, k)
 	else: # pivot==k
 		return tab[pivot]
+
 
 
 print(quickselect(A, 0, n-1, 5))

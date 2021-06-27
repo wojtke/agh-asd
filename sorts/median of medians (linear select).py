@@ -1,6 +1,12 @@
-from random import randint, shuffle, seed
+"""
+Median of medians algorithm (magic fives in polish)
 
-def mediana(A, p, q):
+Works like quickselect, but in worst case linear time.
+
+Values should not repeat.
+"""
+
+def median(A, p, q):
   """Selection sort od p do q,
   zwraca indeks mediany"""
   for i in range(p, q): 
@@ -46,13 +52,13 @@ def linearselect( A, k, first=0, last=None):
   # pełne piątki, wyciągam ich mediany na początek tj. od indeksu first
   i=0
   while i<(last+1-first)//5:
-    m = mediana(A, first+5*i, first+5*i+4)
+    m = median(A, first+5*i, first+5*i+4)
     A[first+i], A[m] = A[m], A[first+i]
     i+=1
 
   # ostatnia, niepełna piątka
   if (last+1-first)%5!=0:
-    m = mediana(A, first+5*i, last) 
+    m = median(A, first+5*i, last) 
     A[first+i], A[m] = A[m], A[first+i]
     i+=1
 
@@ -76,17 +82,13 @@ def linearselect( A, k, first=0, last=None):
 
 
 
+# example
+from random import randint, shuffle, seed
 
-seed(42)
+A = list(range(100))
+shuffle(A)
+x = linearselect( A, 57 )
+print(x, 57)
 
-n = 100
-for i in range(n):
-  A = list(range(4000))
-  shuffle(A)
-  x = linearselect( A, i )
-  if x != i:
-    print("Blad podczas wyszukiwania liczby", i)
-    exit(0)
-    
-print("OK")
+
 

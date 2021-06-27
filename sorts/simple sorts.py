@@ -1,3 +1,9 @@
+"""
+Selection and insertion sorts - simple sorts
+
+O(n^2)
+"""
+
 def selection_sort(T):
     for i in range(len(T)): 
           
@@ -18,6 +24,9 @@ def insertion_sort(T):
             T[j+1] = T[j] 
             j -= 1
         T[j+1] = key
+
+
+# if for some reason I need to sort only part of the array 
 
 def selection_sort_partial(T, p, q):
     #[p, q)

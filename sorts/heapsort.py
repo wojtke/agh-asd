@@ -1,3 +1,11 @@
+"""
+Heapsort
+
+builds a max heap on an array, then reduces space used for heap
+placing max elements at the end on an array
+
+"""
+
 def insert(T, n, val):
     T[n]=val
     parent = (n-1)//2
@@ -32,5 +40,13 @@ def heapSort(T):
     for i in range(n-1, 0, -1):
         T[i], T[0] = T[0], T[i]  
         heapify(T, i, 0)
- 
+
+
+# example
+
+T = [120, 12, 52, 245, 123, 55, 123, 12, 65, 13, 411]
+print(T)
+heapSort(T)
+print(T)
+
  

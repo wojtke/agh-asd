@@ -1,87 +1,90 @@
-def mergesort(T, p, q, Tpomoc=None):
-	Tpomoc=Tpomoc or [None]*len(T)
+"""
+Mergesort - O(nlogn) time, O(n) memory
 
-	if q-p<2:
-		return
+"""
 
-	split = (p+q+1)//2
-	
-	mergesort(T, p, split, Tpomoc)
-	mergesort(T, split, q, Tpomoc)
+def mergesort(T):
+  def ms(T, t, p, q):
+    # [p,q)
+    if q-p==1:
+      return
+      
+    split = (p+q+1)//2
+    ms(T, t, p, split)
+    ms(T, t, split, q)
 
-	i=0
-	j=0
+    i, j = 0, 0
+    while p+i<split and split+j<q:
+      if T[p+i]<T[split+j]:
+        t[p+i+j]=T[p+i]
+        i+=1
+      else:
+        t[p+i+j]=T[split+j]
+        j+=1
 
-	while p+i<split and split+j<q:
-		if T[p+i]<T[split+j]:
-			Tpomoc[p+i+j]=T[p+i]
-			i+=1
-		else:
-			Tpomoc[p+i+j]=T[split+j]
-			j+=1
+    while p+i<split:
+      t[p+i+j]=T[p+i]
+      i+=1
+    while split+j<q:
+      t[p+i+j]=T[split+j]
+      j+=1
 
-	while p+i<split:
-		Tpomoc[p+i+j]=T[p+i]
-		i+=1
-	while split+j<q:
-		Tpomoc[p+i+j]=T[split+j]
-		j+=1
+    while p<q:
+      T[p]=t[p]
+      p+=1
 
-	while p<q:
-		T[p]=Tpomoc[p]
-		p+=1
+    return
 
+  # t - auxiliary array
+  t = [None]*len(T)
 
-'''
-T = [24,51,4,5,1,5,4,57,7,73,23,45,1]
+  ms(T, t, 0, len(T))
+
+# cool way to count inversions in an array using mergesort
+
+def mergesort_inversions(T):
+  def ms(T, t, p, q):
+    if q-p==1:
+      return 0
+    
+    inv = 0
+    split = (p+q+1)//2
+    inv+=ms(T, t, p, split)
+    inv+=ms(T, t, split, q)
+
+    i, j = 0, 0
+    while p+i<split and split+j<q:
+      if T[p+i]<T[split+j]:
+        t[p+i+j]=T[p+i]
+        i+=1
+      else:
+        t[p+i+j]=T[split+j]
+        j+=1
+        inv+=1
+
+    while p+i<split:
+      t[p+i+j]=T[p+i]
+      i+=1
+    while split+j<q:
+      t[p+i+j]=T[split+j]
+      j+=1
+
+    while p<q:
+      T[p]=t[p]
+      p+=1
+
+    return inv
+
+  # t - auxiliary array
+  t = [None]*len(T)
+
+  return ms(T, t, 0, len(T))
+
+# example 
+
+T = [1,3,2,55,51,12,34,6,3]
 print(T)
-mergesort(T, 0, len(T))
+print("inversions: ", mergesort_inversions(T[:]))
+mergesort(T)
 print(T)
-'''
 
-def mergesort_inversions(T, p, q, Tpomoc=None):
-	Tpomoc=Tpomoc or [None]*len(T)
-
-	if q-p<2:
-		return 0
-
-	split = (p+q+1)//2
-	
-	inv=0
-
-	inv+=mergesort_inversions(T, p, split, Tpomoc)
-	inv+=mergesort_inversions(T, split, q, Tpomoc)
-
-	i=0
-	j=0
-
-	while p+i<split and split+j<q:
-		if T[p+i]<T[split+j]:
-			Tpomoc[p+i+j]=T[p+i]
-			i+=1
-		else:
-			Tpomoc[p+i+j]=T[split+j]
-			j+=1
-			inv+=1
-
-	while p+i<split:
-		Tpomoc[p+i+j]=T[p+i]
-		i+=1
-
-	while split+j<q:
-		Tpomoc[p+i+j]=T[split+j]
-		j+=1
-
-	while p<q:
-		T[p]=Tpomoc[p]
-		p+=1
-
-	return inv
-
-
-'''
-T = [1,3,2,5]
-print(T)
-print(mergesort_inversions(T, 0, len(T)))
-print(T)
-'''

@@ -1,3 +1,8 @@
+"""
+Returns index of element x in sorted array.
+In case of duplicates, returns first occurence.
+If x not present in array, returns None.
+"""
 
 def binsearch(T, x, i=0, j=None):
 	#[i,j)
@@ -21,9 +26,9 @@ def binsearch(T, x, i=0, j=None):
 		return binsearch(T, x, mid+1, j)
 
 
-
+# example
 T = [0, 1, 11, 12, 12, 12, 12, 12, 12, 13]
+to_search = [0, 1, 2, 5, 12, 13]
 
-
-for i, x in enumerate(T):
-	print(i, x, binsearch(T, x))
+for x in to_search:
+	print(x, binsearch(T, x))

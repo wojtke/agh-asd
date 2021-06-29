@@ -1,10 +1,13 @@
-from random import randint, seed
+"""
+Problem:
+Ferry with two lanes of length L is being loaded with cars of length A[i]. 
+How many cars can we fit, if we are not allowed to skip them 
+and change the order in which they get loaded, only choose left or right lane?
 
-seed(1337)
-A = [randint(10,50) for _ in range(10)]
-L = sum(A)//4
+Solution:
+F[i][a] - can we fit first i cars with first lane filled to length a
+"""
 
-print(A, L)
 
 def ferry(A, L):
 	n = len(A)
@@ -40,4 +43,13 @@ def ferry(A, L):
 
 	return i
 
+# example
+
+from random import randint, seed
+
+seed(1337)
+A = [randint(10,50) for _ in range(10)]
+L = sum(A)//4
+
+print(A, L)
 print(ferry(A, L))

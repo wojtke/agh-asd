@@ -1,7 +1,12 @@
-A = [2,5,2,6,6,8,4,8,4,7,6,4]
+"""
+Problem:
+Maximalize profit from cutting trees, but cannot cut two trees in a row. Profit from tree i: A[i].
 
-# f(i) - najwiekszy zysk ze scinki drzew na obszarze do i-tego drzewa
-# f(i) = max(A[i] + f(i-2), f(i-1))
+Solution:
+ f(i) - max profit from cuttin trees up to i
+ f(i) = max(A[i] + f(i-2), f(i-1))
+
+"""
 
 def forest(A):
 	F = [0]*len(A)
@@ -24,19 +29,22 @@ def forest(A):
 			P[i] = 1
 
 
-	# odzyskiwanie wyniku, w tym przypadku sprawdzenie czy sumuje sie dobrze
-	suma = 0
+	# which trees to cut
+	trees = []
 	i = len(A)-1
 	while i>=0:
 		if P[i]==2:
-			suma+=A[i]
+			trees+=[i]
 			i-=2
 		else:
 			i-=1
 
-	print(suma)
+	print(trees)
 
-	return F[len(A)-1]
+	return F[len(A)-1] 
 
+# example
+
+A = [9,5,2,6,6,8,4,8,4,7,6,4]
 
 print(forest(A))

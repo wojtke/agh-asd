@@ -1,4 +1,6 @@
 """
+Problem:
+Find most valuable path in a tree. Path
  F[v] najbardziej wartosciowa sciezka zaczynająca w poddrzewie v, zawierająca v
  F[v] = v.val + max(0, F[child] for child in v.children)
 
@@ -27,6 +29,9 @@ def g(v):
 		return v.g
 	else:
 		v.g = max([0, f(v)] + [g(child) for child in v.children])
+
+# example
+
 
 
 

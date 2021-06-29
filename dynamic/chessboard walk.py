@@ -1,17 +1,27 @@
-# F[i][j] - najmniej koszotwna sciezka zaczynając od i, j do konca
-# F[i][j] = min(  F[i][j+1], F[i+1][j] ) + A[i][j]
+"""
+Problem:
+We have a chessboard with fields numbered 0 to n-1. Each field has a value
+that we need to pay upon moving onto it.
+We need to walk from 0,0 to n-1,n-1 only going right of down. 
+What's the minimal cost?
 
-# i=n-1
-# F[i][j] = F[i][j+1] + A[i][j]
+Solution:
 
-# j=n-1
-# F[i][j] = F[i][j+1] + A[i][j]
+F[i][j] - cheapest path from i, j to the end
+F[i][j] = min(  F[i][j+1], F[i+1][j] ) + A[i][j]
 
-# i=n-1 i j=n-1
-# F[i][j] = A[i][j]
+ i=n-1
+ F[i][j] = F[i][j+1] + A[i][j]
 
-def wedrowka(A):
-	# dla liczb rzeczywistych
+ j=n-1
+ F[i][j] = F[i][j+1] + A[i][j]
+
+ i=n-1 i j=n-1
+ F[i][j] = A[i][j]
+
+"""
+
+def walk(A):
 	F = [[0]*n for _ in range(n)]
 
 	F[n-1][n-1] = A[n-1][n-1]
@@ -29,23 +39,8 @@ def wedrowka(A):
 	return F[0][0]
 
 
-def wedrowka_dodatnie(A):
-	# dla liczb rzeczywistych dodatnich - skrot z rozszerzeniem tablicy o rzad i kolumne zer
-
-	F = [[0]*(n+1) for _ in range(n+1)]
-
-	F[n-1][n-1] = A[n-1][n-1]
-
-	for i in range(n-1, -1, -1):
-		for j in range(n-1, -1, -1):
-			F[i][j] = min( F[i][j+1], F[i+1][j] ) + A[i][j]
-
-	return F[0][0]
-
-
-def wedrowka_path(A):
-	# dla liczb rzeczywistych
-	# wypisuje sciezke
+def walk_path(A):
+	# prints path
 	F = [[0]*n for _ in range(n)]
 	P = [[0]*n for _ in range(n)]
 
@@ -78,15 +73,17 @@ def wedrowka_path(A):
 			i+=1
 		elif P[i][j] == "right":
 			j+=1
-		print( i, j, "( val", A[i][j], ")")
+		print( i, j, f"(val {A[i][j]})")
 	print("End")
 
 	return F[0][0]
+
+# example 
 
 from random import random, randint
 n=5
 A = [[randint(1,5) for _ in range(n)] for _ in range(n)]
 
-print(A)
-
-print(wedrowka_path(A))
+for row in A:
+	print(row)
+print(walk_path(A))
